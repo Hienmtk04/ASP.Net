@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MaiThiKimHienModelStoreContainer" CdmEntityContainer="MaiThiKimHienEntities1">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="MaiThiKimHienModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="MaiThiKimHienModel.Product">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="Brand_id" ColumnName="Brand_id" />
+          <ScalarProperty Name="UpdateOnUtc" ColumnName="UpdateOnUtc" />
+          <ScalarProperty Name="CreatedOnUtc" ColumnName="CreatedOnUtc" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+          <ScalarProperty Name="ShowOnHomePage" ColumnName="ShowOnHomePage" />
+          <ScalarProperty Name="Slug" ColumnName="Slug" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PriceSale" ColumnName="PriceSale" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Category_id" ColumnName="Category_id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="MaiThiKimHienModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="CreatedOnUtc" ColumnName="CreatedOnUtc" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderDetails">
+      <EntityTypeMapping TypeName="MaiThiKimHienModel.OrderDetail">
+        <MappingFragment StoreEntitySet="OrderDetail">
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Brands">
+      <EntityTypeMapping TypeName="MaiThiKimHienModel.Brand">
+        <MappingFragment StoreEntitySet="Brands">
+          <ScalarProperty Name="updateOnUtc" ColumnName="updateOnUtc" />
+          <ScalarProperty Name="createdOnUtc" ColumnName="createdOnUtc" />
+          <ScalarProperty Name="deleted" ColumnName="deleted" />
+          <ScalarProperty Name="displayOrder" ColumnName="displayOrder" />
+          <ScalarProperty Name="showOnHomePage" ColumnName="showOnHomePage" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="brandName" ColumnName="brandName" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="MaiThiKimHienModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="updateOnUtc" ColumnName="updateOnUtc" />
+          <ScalarProperty Name="createdOnUtc" ColumnName="createdOnUtc" />
+          <ScalarProperty Name="deleted" ColumnName="deleted" />
+          <ScalarProperty Name="displayOrder" ColumnName="displayOrder" />
+          <ScalarProperty Name="showOnHomePage" ColumnName="showOnHomePage" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="typeId" ColumnName="typeId" />
+          <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+          <ScalarProperty Name="category_id" ColumnName="category_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Banners">
+      <EntityTypeMapping TypeName="MaiThiKimHienModel.Banner">
+        <MappingFragment StoreEntitySet="Banner">
+          <ScalarProperty Name="position" ColumnName="position" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="createOnUtc" ColumnName="createOnUtc" />
+          <ScalarProperty Name="updateOnUtc" ColumnName="updateOnUtc" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

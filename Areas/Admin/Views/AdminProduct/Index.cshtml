@@ -1,0 +1,77 @@
+﻿@model MaiThiKimHien_2122110261.Models.HomeModel
+    @{
+        ViewBag.Title = "Index";
+    }
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Dashboard</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard v1</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <h2>Quản lý sản phẩm</h2>
+
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+            <table class="table">
+                <tr>
+                    <th style="width:200px"> Tên sản phẩm </th>
+                    <th style="width:200px"> Hình ảnh </th>
+                    <th style="width:150px">Danh mục</th>
+                    <th style="width:150px"> Mô tả </th>
+                    <th style="width:150px"> Thương hiệu </th>
+                    <th> Giá gốc</th>
+                    <th style="width:300px"> Giá khuyến mãi </th>
+                </tr>
+
+                @foreach (var item in Model.ListProduct)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            <img src="~/Content/images/product/@item.Image" class="img-fluid">
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ListCategory.Where(p=> p.category_id ==  item.Category_id).First().categoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ListBrand.Where(p => p.id == item.Brand_id).First().brandName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PriceSale)
+                        </td>
+                        <td>
+                            <a href="">
+
+                            </a>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </section>
+</div>

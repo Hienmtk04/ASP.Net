@@ -1,0 +1,399 @@
+﻿@model MaiThiKimHien_2122110261.Models.HomeModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<!DOCTYPE HTML>
+<html lang="en">
+<body>
+    <div class="container">
+        <!-- ========================= SECTION MAIN  ========================= -->
+        <section class="section-main padding-y">
+            <main class="card">
+                <div class="card-body">
+
+                    <div class="row">
+                        <aside class="col-lg col-md-3 flex-lg-grow-0">
+                            <h6>Danh mục</h6>
+                            <nav class="nav-home-aside">
+                                <ul class="menu-category">
+                                    @foreach (var category in Model.ListCategory)
+                                    {
+                                        <li><a href="@Url.Action("ProductByCategory","Product", new {@id = category.category_id})">@category.categoryName</a></li>
+                                    }
+                                </ul>
+                            </nav>
+                        </aside> <!-- col.// -->
+                        <div class="col-md-9 col-xl-7 col-lg-7">
+                            <!-- ================== COMPONENT SLIDER BOOTSTRAP ==================  -->
+                            <div id="carousel1_indicator" class="slider-home-banner carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    @for (int i = 0; i < Model.ListBanner.Count; i++)
+                                    {
+                                        <li data-target="#carousel1_indicator" data-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
+                                    }
+                                </ol>
+                                <div class="carousel-inner">
+                                    @foreach (var item in Model.ListBanner.Select((value, index) => new { value, index }))
+                                    {
+                                        <div class="carousel-item @(item.index == 0 ? "active" : "")">
+                                            <img src="~/Content/images/banner/@item.value.image" class="d-block w-100" alt="Slide">
+                                        </div>
+                                    }
+                                </div>
+                                <a class="carousel-control-prev" href="#carousel1_indicator" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carousel1_indicator" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                            <!-- ================== COMPONENT SLIDER BOOTSTRAP end.// ==================  -->
+                        </div>
+                        <!-- col.// -->
+                        <div class="col-md d-none d-lg-block flex-grow-1">
+                            <aside class="special-home-right">
+                                <h6 class="bg-blue text-center text-white mb-0 p-2">Danh mục phổ biến</h6>
+                                @foreach (var category in Model.ListCategory.Where(p => p.typeId == 1).Take(3))
+                                {
+                                    <a href="@Url.Action("ProductByCategory","Product", new {@id = category.category_id}, null)">
+                                        <div class="card-banner border-bottom">
+                                            <div class="py-3" style="width:80%">
+                                                <h6 class="card-title b">@category.categoryName</h6>
+                                                <a href="@Url.Action("ProductByCategory","Product", new {@id = category.category_id})"
+                                                   class="btn btn-secondary btn-sm"> Xem ngay </a>
+                                            </div>
+                                            <img class="img-bg center-y" src="~/Content/images/category/@category.image" height="80" />
+                                        </div>
+                                    </a>
+                                }
+
+                            </aside>
+                        </div> <!-- col.// -->
+                    </div> <!-- row.// -->
+
+                </div> <!-- card-body.// -->
+            </main> <!-- card.// -->
+
+        </section>
+        <!-- ========================= SECTION MAIN END// ========================= -->
+        <!-- =============== SECTION DEAL =============== -->
+        <section class="padding-bottom">
+            <div class="card card-deal">
+                <div class="col-heading content-body">
+                    <header class="section-heading">
+                        <h3 class="section-title">Deals and offers</h3>
+                        <p>Hygiene equipments</p>
+                    </header><!-- sect-heading -->
+                    <div class="timer">
+                        <div> <span class="num">04</span> <small>Days</small></div>
+                        <div> <span class="num">12</span> <small>Hours</small></div>
+                        <div> <span class="num">58</span> <small>Min</small></div>
+                        <div> <span class="num">02</span> <small>Sec</small></div>
+                    </div>
+                </div> <!-- col.// -->
+                <div class="row no-gutters items-wrap">
+                    <div class="row row-sm">
+                        @foreach (var product in Model.ListProduct.Where(p => p.TypeId == 1 && p.PriceSale > 0).Take(4))
+                        {
+                                <div class="col">
+                                    <div class="card card-sm card-product-grid" style="height: 300px; width: 230px">
+
+                                        <a href="@Url.Action("Detail","Product", new { @id = product.Id })" class="img-wrap">
+                                            @if (product.PriceSale > 0 && product.Price > 0)
+                                            {
+                                                <span class="badge badge-danger justify-content-sm-start">
+                                                    @Math.Round((1 - (product.PriceSale / product.Price)) * 100, 0)%
+                                                </span>
+                                            }
+                                            <img src="~/Content/images/product/@product.Image" style="height: 150px">
+                                        </a>
+                                        <figcaption class="info-wrap b">
+                                            <div style="height:60px;">@Html.ActionLink(@product.Name, "Detail", "Product", new { @id = product.Id }, null)</div>
+                                            <span class="price mt-3 text-danger" style="height: 30px; font-size: 13px;">@product.PriceSale.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                                            <span class="price text-dark" style="height:30px; font-size: 10px;"><del>@product.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</del></span>
+
+                                        </figcaption>
+                                    </div>
+                                </div> <!-- col.// -->
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <!-- =============== SECTION DEAL // END =============== -->
+        <!-- =============== SECTION 1 =============== -->
+        <section class="padding-bottom">
+            <header class="section-heading heading-line">
+                <h4 class="title-section text-uppercase">Thương hiệu nổi tiếng</h4>
+            </header>
+
+            <div class="card card-home-category">
+                <div class="row no-gutters">
+                    <div class="col">
+                        <ul class="row no-gutters bordered-cols">
+                            @foreach (var item in Model.ListBrand.Where(p => p.showOnHomePage == true).Take(4))
+                            {
+                                <li class="col-6 col-lg-3 col-md-4">
+                                    <a href="@Url.Action("ProductByBrand","Product", new {@id = item.id})" class="item">
+                                        <div class="card-body">
+                                            <div style="height: 200px">
+                                                <h6 class="title font-weight-bold text-uppercase" style="color: orangered">@item.brandName </h6>
+                                                <p class="text-gray-dark">@item.description</p>
+                                            </div>                                         
+                                            <img class=" float-right" style="width: 150px; height: 70px" src="~/Content/images/brand/@item.image">
+                                        </div>
+                                    </a>
+                                </li>
+                            }                           
+                        </ul>
+                    </div> <!-- col.// -->
+                </div> <!-- row.// -->
+            </div> <!-- card.// -->
+        </section>
+        <!-- =============== SECTION 1 END =============== -->
+        <!-- =============== SECTION 2 =============== -->
+        <section class="padding-bottom">
+            <header class="section-heading heading-line">
+                <h4 class="title-section text-uppercase">Sản phẩm mới nhất</h4>
+            </header>
+            <div class="card card-home-category">
+                <div class="row no-gutters">
+                    <div class="col">
+                        <div class="row row-sm">
+
+                            @foreach (var product in Model.ListProduct.OrderByDescending(p => p.Id).Take(6))
+                            {
+                                if (@product.PriceSale != 0)
+                                {
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="card card-sm card-product-grid" style="height:300px">
+
+                                            <a href="@Url.Action("Detail","Product", new { @id = product.Id })" class="img-wrap">
+                                                @if (product.PriceSale > 0 && product.Price > 0)
+                                                {
+                                                    <span class="badge badge-danger justify-content-sm-start">
+                                                        @Math.Round((1 - (product.PriceSale / product.Price)) * 100, 0)%
+                                                    </span>
+                                                }
+                                                <img src="~/Content/images/product/@product.Image" style="height: 150px">
+
+                                            </a>
+                                            <figcaption class="info-wrap b">
+                                                <div style="height:60px;">@Html.ActionLink(@product.Name, "Detail", "Product", new { @id = product.Id }, null)</div>
+                                                <span class="price mt-3 text-danger" style="height: 30px; font-size: 13px;">@product.PriceSale.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                                                <span class="price text-dark" style="height:30px; font-size: 10px;"><del>@product.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</del></span>
+
+                                            </figcaption>
+                                        </div>
+                                    </div> <!-- col.// -->
+                                }
+                                else
+                                {
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                                        <div class="card card-sm card-product-grid" style="height:300px">
+                                            <a href="@Url.Action("Detail","Product", new { @id = product.Id })" class="img-wrap">
+                                                <img src="~/Content/images/product/@product.Image" style="height: 150px">
+                                            </a>
+                                            <figcaption class="info-wrap b">
+                                                <div style="height:60px;">@Html.ActionLink(@product.Name, "Detail", "Product", new { @id = product.Id }, null)</div>
+                                                <div class="price mt-3 text-danger" style="height: 30px; font-size: 13px;">@product.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</div>
+                                            </figcaption>
+                                        </div>
+                                    </div> <!-- col.// -->
+                                }
+                            }
+                        </div>
+                    </div> <!-- col.// -->
+                </div> <!-- row.// -->
+            </div> <!-- card.// -->
+        </section>
+        <!-- =============== SECTION 2 END =============== -->
+        <!-- =============== SECTION REQUEST =============== -->
+
+        <section class="padding-bottom">
+
+            <header class="section-heading heading-line">
+                <h4 class="title-section text-uppercase">Request for Quotation</h4>
+            </header>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card-banner banner-quote overlay-gradient" style="background-image: url('~/Content/images/banners/banner9.jpg');">
+                        <div class="card-img-overlay white">
+                            <h3 class="card-title">An easy way to send request to suppliers</h3>
+                            <p class="card-text" style="max-width: 400px">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt.
+                            </p>
+                            <a href="" class="btn btn-primary rounded-pill">Learn more</a>
+                        </div>
+                    </div>
+                </div> <!-- col // -->
+                <div class="col-md-4">
+
+                    <div class="card card-body">
+                        <h4 class="title py-3">One Request, Multiple Quotes</h4>
+                        <form>
+                            <div class="form-group">
+                                <input class="form-control" name="" placeholder="What are you looking for?" type="text">
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="Quantity" name="" type="text">
+
+                                    <select class="custom-select form-control">
+                                        <option>Pieces</option>
+                                        <option>Litres</option>
+                                        <option>Tons</option>
+                                        <option>Gramms</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group text-muted">
+                                <p>Select template type:</p>
+                                <label class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" value="option1">
+                                    <div class="form-check-label">Request price</div>
+                                </label>
+                                <label class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" value="option2">
+                                    <div class="form-check-label">Request a sample</div>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-warning">Request for quote</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div> <!-- col // -->
+            </div> <!-- row // -->
+        </section>
+
+        <section class="padding-bottom-sm">
+
+            <header class="section-heading heading-line">
+                <h4 class="title-section text-uppercase">Sản phẩm đề xuất</h4>
+            </header>
+
+
+            <div class="row row-sm">
+                @foreach (var product in Model.ListProduct.Where(p=>p.TypeId == 1).Take(6))
+                {
+                    if (@product.PriceSale != 0)
+                    {
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                            <div class="card card-sm card-product-grid" style="height:300px">
+                                
+                                <a href="@Url.Action("Detail","Product", new { @id = product.Id })" class="img-wrap">
+                                    @if (product.PriceSale > 0 && product.Price > 0)
+                                    {
+                                        <span class="badge badge-danger justify-content-sm-start">
+                                            -@Math.Round((1 - (product.PriceSale / product.Price)) * 100, 0)%
+                                        </span>
+                                    }
+                                    <img src="~/Content/images/product/@product.Image" style="height: 150px">
+
+                                </a>
+                                <figcaption class="info-wrap b">
+                                    <div style="height:60px;">@Html.ActionLink(@product.Name, "Detail", "Product", new { @id = product.Id }, null)</div>
+                                    <span class="price mt-3 text-danger" style="height: 30px; font-size: 13px;">@product.PriceSale.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</span>
+                                    <span class="price text-dark" style="height:30px; font-size: 10px;"><del>@product.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</del></span>
+
+                                </figcaption>
+                            </div>
+                        </div> <!-- col.// -->
+                    }
+                    else
+                    {
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                            <div class="card card-sm card-product-grid" style="height:300px">
+                                <a href="@Url.Action("Detail","Product", new { @id = product.Id })" class="img-wrap">
+                                    <img src="~/Content/images/product/@product.Image" style="height: 150px">
+                                </a>
+                                <figcaption class="info-wrap b">
+                                    <div style="height:60px;">@Html.ActionLink(@product.Name, "Detail", "Product", new { @id = product.Id }, null)</div>
+                                    <div class="price mt-3 text-danger" style="height: 30px; font-size: 13px;">@product.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</div>
+                                </figcaption>
+                            </div>
+                        </div> <!-- col.// -->
+                    }
+
+                }
+            </div> <!-- row.// -->
+
+        </section>
+        <!-- =============== SECTION ITEMS .//END =============== -->
+        <!-- =============== SECTION SERVICES =============== -->
+        @*<section class="padding-bottom">
+
+            <header class="section-heading heading-line">
+                <h4 class="title-section text-uppercase">Trade services</h4>
+            </header>
+
+           
+
+        </section>*@
+        <!-- =============== SECTION SERVICES .//END =============== -->
+        <!-- =============== SECTION REGION =============== -->
+        <section class="padding-bottom">
+
+            <header class="section-heading heading-line">
+                <h4 class="title-section text-uppercase">Quốc gia</h4>
+            </header>
+
+            <ul class="row mt-4">
+                <li class="col-md col-6"><a href="#" class="icontext"> <img class="icon-flag-sm" src="~/Content/images/icons/flags/CN.png"> <span>China</span> </a></li>
+                <li class="col-md col-6"><a href="#" class="icontext"> <img class="icon-flag-sm" src="~/Content/images/icons/flags/DE.png"> <span>Germany</span> </a></li>
+                <li class="col-md col-6"><a href="#" class="icontext"> <img class="icon-flag-sm" src="~/Content/images/icons/flags/AU.png"> <span>Australia</span> </a></li>
+                <li class="col-md col-6"><a href="#" class="icontext"> <img class="icon-flag-sm" src="~/Content/images/icons/flags/RU.png"> <span>Russia</span> </a></li>
+                <li class="col-md col-6"><a href="#" class="icontext"> <img class="icon-flag-sm" src="~/Content/images/icons/flags/IN.png"> <span>India</span> </a></li>
+                <li class="col-md col-6"><a href="#" class="icontext"> <img class="icon-flag-sm" src="~/Content/images/icons/flags/GB.png"> <span>England</span> </a></li>
+                <li class="col-md col-6"><a href="#" class="icontext"> <img class="icon-flag-sm" src="~/Content/images/icons/flags/TR.png"> <span>Turkey</span> </a></li>
+                <li class="col-md col-6"><a href="#" class="icontext"> <img class="icon-flag-sm" src="~/Content/images/icons/flags/UZ.png"> <span>Uzbekistan</span> </a></li>
+                <li class="col-md col-6"><a href="#" class="icontext"> <i class="mr-3 fa fa-ellipsis-h"></i> <span>More regions</span> </a></li>
+            </ul>
+        </section>
+        <!-- =============== SECTION REGION .//END =============== -->
+
+        <article class="my-4">
+            <img src="~/Content/images/banners/ad-sm.png" class="w-100">
+        </article>
+    </div>
+    <!-- container end.// -->
+    <!-- ========================= SECTION SUBSCRIBE  ========================= -->
+    <section class="section-subscribe padding-y-lg">
+        <div class="container">
+
+            <p class="pb-2 text-center text-white">Delivering the latest product trends and industry news straight to your inbox</p>
+
+            <div class="row justify-content-md-center">
+                <div class="col-lg-5 col-md-6">
+                    <form class="form-row">
+                        <div class="col-md-8 col-7">
+                            <input class="form-control border-0" placeholder="Your Email" type="email">
+                        </div> <!-- col.// -->
+                        <div class="col-md-4 col-5">
+                            <button type="submit" class="btn btn-block btn-warning"> <i class="fa fa-envelope"></i> Subscribe </button>
+                        </div> <!-- col.// -->
+                    </form>
+                    <small class="form-text text-white-50">We’ll never share your email address with a third-party. </small>
+                </div> <!-- col-md-6.// -->
+            </div>
+
+
+        </div>
+    </section>
+    <!-- ========================= SECTION SUBSCRIBE END// ========================= -->
+    <!-- ========================= FOOTER ========================= -->
+    <!-- ========================= FOOTER END // ========================= -->
+
+
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MaiThiKimHienModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MaiThiKimHienEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Users" EntityType="MaiThiKimHienModel.User" />
+    <EntitySet Name="Products" EntityType="MaiThiKimHienModel.Product" />
+    <EntitySet Name="Orders" EntityType="MaiThiKimHienModel.Order" />
+    <EntitySet Name="OrderDetails" EntityType="MaiThiKimHienModel.OrderDetail" />
+    <EntitySet Name="Brands" EntityType="MaiThiKimHienModel.Brand" />
+    <EntitySet Name="Categories" EntityType="MaiThiKimHienModel.Category" />
+    <EntitySet Name="Banners" EntityType="MaiThiKimHienModel.Banner" />
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="last_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="first_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="phone" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Category_id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="PriceSale" Type="Double" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="TypeId" Type="Int32" />
+    <Property Name="Slug" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ShowOnHomePage" Type="Boolean" />
+    <Property Name="DisplayOrder" Type="Int32" />
+    <Property Name="Deleted" Type="Boolean" />
+    <Property Name="CreatedOnUtc" Type="DateTime" Precision="3" />
+    <Property Name="UpdateOnUtc" Type="DateTime" Precision="3" />
+    <Property Name="Brand_id" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="CreatedOnUtc" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Brand">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="brandName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="showOnHomePage" Type="Boolean" />
+    <Property Name="displayOrder" Type="Int32" />
+    <Property Name="deleted" Type="Boolean" />
+    <Property Name="createdOnUtc" Type="DateTime" Precision="3" />
+    <Property Name="updateOnUtc" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="category_id" />
+    </Key>
+    <Property Name="category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="categoryName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="typeId" Type="Int32" />
+    <Property Name="image" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="showOnHomePage" Type="Boolean" />
+    <Property Name="displayOrder" Type="Int32" />
+    <Property Name="deleted" Type="Boolean" />
+    <Property Name="createdOnUtc" Type="DateTime" Precision="3" />
+    <Property Name="updateOnUtc" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Banner">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="image" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="updateOnUtc" Type="DateTime" Precision="3" />
+    <Property Name="createOnUtc" Type="DateTime" Precision="3" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="position" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>
